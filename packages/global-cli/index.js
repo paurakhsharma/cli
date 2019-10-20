@@ -291,6 +291,9 @@ function run(root, projectName, options) {
       installCommand += ' --verbose';
     }
   }
+  checkNodeVersion();
+  cli = require(getCliPath());
+  cli.init(root, projectName);
   try {
     execSync(installCommand, {stdio: 'inherit'});
   } catch (err) {
@@ -298,9 +301,6 @@ function run(root, projectName, options) {
     console.error(`Command \`${installCommand}\` failed.`);
     process.exit(1);
   }
-  checkNodeVersion();
-  cli = require(getCliPath());
-  cli.init(root, projectName);
 }
 
 function checkNodeVersion() {
